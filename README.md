@@ -175,9 +175,84 @@ example.com                    A      IN    TTL=86400  93.184.216.34
   MAC Address: AA:BB:CC:DD:EE:FF
 ```
 
+### SMTP Demo (option 3)
+```
+══════════════════════════════════════════════════════════════════════
+  SMTP Session: smtp.example.com:587
+══════════════════════════════════════════════════════════════════════
+[INFO] Connecting to SMTP server smtp.example.com:587
+[INFO] SMTP Greeting: 220 smtp.example.com ESMTP ready
+[INFO] HELO → 250 Hello client.local
+[INFO] MAIL FROM → 250 OK
+[INFO] RCPT TO → 250 OK
+[INFO] Server ready for data: 354 Start mail input
+[INFO] Message accepted: 250 OK: queued
+[INFO] QUIT → 221 Bye
+[INFO] Email sent successfully!
+```
+
+### FTP Demo (option 4)
+```
+══════════════════════════════════════════════════════════════════════
+  FTP Session: ftp.dlptest.com:21
+══════════════════════════════════════════════════════════════════════
+[INFO] Connecting to FTP server ftp.dlptest.com:21
+[INFO] FTP Welcome: 220 Welcome to the DLP Test FTP Server
+[INFO] Logging in as: dlpuser
+[INFO] Logged in successfully
+[INFO] PASV: data connection at 35.192.130.35:47821
+[INFO] Listing directory...
+══════════════════════════════════════════════════════════════════════
+  Directory Listing
+══════════════════════════════════════════════════════════════════════
+-rw-r--r--    1 1001     1001        1024 Jan 01 00:00 testfile.txt
+drwxr-xr-x    2 1001     1001        4096 Jan 01 00:00 uploads
+[INFO] FTP session closed
+```
+
+## Prerequisites
+
+- **Java JDK 11+** (uses `java.time` and modern `java.net` features)
+- **Internet access** for DNS resolution and external SMTP/FTP servers
+- No build tools, frameworks, or third-party libraries required
+
+## CLI Options
+
+| Flag | Description | Example |
+|------|-------------|---------|
+| `--protocol <name>` | Run a protocol demo directly (skip menu) | `--protocol dns` |
+| `--verbose` / `-v` | Enable debug-level logging | `--verbose` |
+| `--dns-server <ip>` | Override DNS server (default: `8.8.8.8`) | `--dns-server 1.1.1.1` |
+| `--http-port <port>` | Set HTTP server port (default: `8080`) | `--http-port 9090` |
+| `--timeout <ms>` | Set connect/read timeout in milliseconds | `--timeout 10000` |
+
 ## Notes
 
 - **SMTP/FTP**: These require real external servers. The tests use built-in mock servers for validation
 - **DHCP**: Fully simulated on localhost (no real broadcast). Uses non-standard high ports
 - **DNS**: Requires internet access to reach `8.8.8.8`. Change with `--dns-server`
 - **Tests**: Use custom test harness (no JUnit dependency). Each test file is standalone
+
+## Tech Stack
+
+| Component | Technology |
+|-----------|-----------|
+| Language | Java 11+ |
+| TCP Networking | `java.net.Socket`, `java.net.ServerSocket` |
+| UDP Networking | `java.net.DatagramSocket`, `java.net.DatagramPacket` |
+| Binary Protocols | `java.nio.ByteBuffer` |
+| Concurrency | `java.lang.Thread` |
+| Date/Time | `java.time.ZonedDateTime` |
+| Build | `javac` (no Maven/Gradle) |
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/new-protocol`)
+3. Commit changes (`git commit -m 'Add SNMP protocol support'`)
+4. Push to branch (`git push origin feature/new-protocol`)
+5. Open a Pull Request
+
+## License
+
+This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.
