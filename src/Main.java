@@ -148,7 +148,7 @@ public class Main {
         System.out.println("║  4. FTP   (Client)                    ║");
         System.out.println("║  5. DHCP  (Simulated Exchange)        ║");
         System.out.println("║  6. Toggle Verbose Mode [" +
-                (Config.isVerbose() ? "ON " : "OFF") + "]           ║");
+                (Config.isVerbose() ? "ON " : "OFF") + "]         ║");
         System.out.println("║  7. Show Configuration                ║");
         System.out.println("║  8. Configure Settings                ║");
         System.out.println("║  0. Exit                              ║");
