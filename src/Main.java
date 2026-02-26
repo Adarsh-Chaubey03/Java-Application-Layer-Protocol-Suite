@@ -1,15 +1,14 @@
-import protocols.http.HttpClient;
-import protocols.http.HttpServer;
-import protocols.dns.DnsClient;
-import protocols.smtp.SmtpClient;
-import protocols.ftp.FtpClient;
-import protocols.dhcp.DhcpSimServer;
-import protocols.dhcp.DhcpSimClient;
-import utils.Config;
-import utils.Logger;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import protocols.dhcp.DhcpSimClient;
+import protocols.dhcp.DhcpSimServer;
+import protocols.dns.DnsClient;
+import protocols.ftp.FtpClient;
+import protocols.http.HttpClient;
+import protocols.http.HttpServer;
+import protocols.smtp.SmtpClient;
+import utils.Config;
+import utils.Logger;
 
 /**
  * Main entry point for the Application Layer Protocol Stack.
@@ -325,7 +324,8 @@ public class Main {
     private static String readInput(String prompt) {
         System.out.print(prompt);
         try {
-            return INPUT.readLine();
+            String line = INPUT.readLine();
+            return (line != null) ? line : "";
         } catch (Exception e) {
             return "";
         }
